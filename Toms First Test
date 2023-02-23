@@ -1,0 +1,28 @@
+import AuthorizationController, { LoginCredentialSource } from "Controllers/AuthorizationController";
+import CypressElement from "Helpers/CypressElement";
+
+describe("Open Dispatch Board", () => {
+  beforeEach(() => {
+    AuthorizationController.loginBySource(LoginCredentialSource.E2E);
+    const todaysDate = new Date();
+
+    // get the month, day, and year from the date object
+    const month = todaysDate.getMonth() + 1; // add 1 because getMonth() returns 0-indexed values
+    const day = todaysDate.getDate();
+    const year = todaysDate.getFullYear();
+
+    // format the date as mm-dd-yyyy
+    const formattedDate = `${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}-${year}`;
+
+    // concatenate the formatted date with the given string
+    const urlWithDate = `/#/DispatchBoard/Configuration/${formattedDate}`;
+
+    cy.visit(urlWithDate);
+  });
+
+  it("Dispatch setting wheel > click on board appearance", () => {
+    const boardAppearanceButton = new CypressElement("#page > div > div.nav > ul > li:nth-child(2) > span");
+    boardAppearanceButton.getElement().click();
+    cy.get('[data-bind="checked: ShowJobDetailsFlyout, checkedValue: true"]').should("have.attr", "value", "true");
+  });
+});
