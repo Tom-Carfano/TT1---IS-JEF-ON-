@@ -6,7 +6,7 @@ describe("Open Dispatch Board", () => {
     AuthorizationController.loginBySource(LoginCredentialSource.E2E);
     const todaysDate = new Date();
 
-    // get the month, day, and year from the date object
+    // get the month, day, and year from the date
     const month = todaysDate.getMonth() + 1; // add 1 because getMonth() returns 0-indexed values
     const day = todaysDate.getDate();
     const year = todaysDate.getFullYear();
@@ -14,7 +14,7 @@ describe("Open Dispatch Board", () => {
     // format the date as mm-dd-yyyy
     const formattedDate = `${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}-${year}`;
 
-    // concatenate the formatted date with the given string
+    // concatenate date to string
     const urlWithDate = `/#/DispatchBoard/Configuration/${formattedDate}`;
 
     cy.visit(urlWithDate);
